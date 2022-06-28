@@ -17,6 +17,7 @@ void main(){
         printf("H                                                                    H\n");
         printf("H                            1-.Iniciar juego                        H\n");
         printf("H                            2-%cQue es el tetris?                    H\n",168);
+        printf("H                            3-.Puntajes                             H\n");
         printf("H                                                                    H\n");
         printf("H                            0-.Cerrar juego                         H\n");
         printf("======================================================================\n");
@@ -44,6 +45,9 @@ void main(){
                     tetris2(ListaPuntaje);
                     break;
                 }
+            break;
+            case 3:
+            mostrarPuntajes(ListaPuntaje);
             break;
 
         }

@@ -7,6 +7,7 @@
 #include <string.h>
 #include <Windows.h>
 #include "list.h"
+#include "tetris.h"
 
 //Definimos Controles del Tetris
 #define IZQUIERDA 75
@@ -25,11 +26,10 @@
 #define VACIO 0
 #define PARED 1
 
-typedef struct 
-{
+struct Puntaje{
 	char nombre[100];
 	int puntosObtenidos;
-}Puntaje;
+};
 
 
 //Declaracion de funciones a utilizar
@@ -570,18 +570,31 @@ void guardarPuntaje(List* ListaPuntaje){
 	int auxPuntaje=puntos;
 	system("cls");
 
+	char aux;
 	Puntaje* puntajeNuevo=(Puntaje*) malloc (sizeof(Puntaje));
 	char nombreUsuario[100];
 	
 	printf("INGRESE SU NOMBRE O APODO\n");
 	scanf("%s^[/n]", &nombreUsuario);
 	strcpy(puntajeNuevo->nombre,nombreUsuario);
-	printf("Nombre guardado\n");
+	printf("nombre: %s\n", puntajeNuevo->nombre);
 	puntajeNuevo->puntosObtenidos=auxPuntaje;
-	printf("puntaje guardado\n");
+	printf("puntaje: %i\n", puntajeNuevo->puntosObtenidos);
 	pushBack(ListaPuntaje,puntajeNuevo);
 	printf("agregado a la lista\n");
+	aux = getch();
+}
 
+void mostrarPuntajes(List* ListaPuntaje){
+
+	Puntaje* auxPuntaje=firstList(ListaPuntaje);
+	if(auxPuntaje==NULL){
+		printf("No hay puntos\n");
+	}
+	while(auxPuntaje!=NULL){
+		printf("%s -> %i\n",auxPuntaje->nombre, auxPuntaje->puntosObtenidos);
+		auxPuntaje=nextList(ListaPuntaje);
+	}
 }
 
 //Funcion para limpiar la Terminal

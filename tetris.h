@@ -1,6 +1,9 @@
 //Declaracion de funciones a utilizar
 
 #include "list.h"
+
+typedef struct Puntaje Puntaje;
+
 void crearTablero();
 void dibujarTetromino(int p);
 void dibujarTablero();
@@ -16,3 +19,4 @@ void limpiarTerminal();
 void tetris(List* ListaPuntaje);
 void tetris2(List* ListaPuntaje);
 void guardarPuntaje(List* ListaPuntaje);
+void mostrarPuntajes(List* ListaPuntaje);
