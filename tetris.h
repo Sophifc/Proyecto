@@ -1,7 +1,6 @@
 //Declaracion de funciones a utilizar
 
 #include "list.h"
-
 void crearTablero();
 void dibujarTetromino(int p);
 void dibujarTablero();

@@ -182,8 +182,9 @@ void tetris (List* ListaPuntaje){
  	gotoxy(TX+TW+3,TY+13);
  	printf("======================================");
 
-	if(obtenerTecla(ListaPuntaje));
-	Sleep(1000/20);
+	while(TRUE){
+		if(obtenerTecla(ListaPuntaje))break;
+	}
 	fin = getch();
 	gotoxy(1,28);
 	system("cls");
@@ -253,8 +254,11 @@ void tetris2(List* ListaPuntaje){
  	printf("|                                    |");
  	gotoxy(TX+TW+3,TY+13);
  	printf("======================================");
+
+	while(TRUE){
+		if(obtenerTecla(ListaPuntaje))break;
+	}
 	fin = getch();
-	if(obtenerTecla(ListaPuntaje));//AQUI
 	gotoxy(1,28);
 	system("cls");
 }
@@ -565,13 +569,29 @@ void pausa(){
 void guardarPuntaje(List* ListaPuntaje){
 
 	Puntaje* puntajeNuevo;
-	char* nombreUsuario;
-	printf("Ingrese el su nombre o apodo\n");
-	fgets(nombreUsuario,100,stdin);
+	char nombreUsuario[100];
+
+	gotoxy(TX+TW+3,TY+7);
+ 	printf("===================================");
+ 	gotoxy(TX+TW+3,TY+8);
+ 	printf("|                                 |");
+	gotoxy(TX+TW+3,TY+9);
+ 	printf("|                                 |");
+ 	gotoxy(TX+TW+3,TY+10);
+ 	printf("|  Ingrese el su nombre o apodo   |");
+ 	gotoxy(TX+TW+3,TY+11);
+ 	printf("|                                 |");
+ 	gotoxy(TX+TW+3,TY+12);
+ 	printf("|                                 |");
+ 	gotoxy(TX+TW+3,TY+13);
+ 	printf("===================================");
+	//fgets(nombreUsuario,100,stdin);
 
 	puntajeNuevo->puntosObtenidos=puntos;
 	strcpy(puntajeNuevo->nombre,nombreUsuario);
 	pushBack(ListaPuntaje,puntajeNuevo);
+
+
 }
 
 //Funcion para limpiar la Terminal

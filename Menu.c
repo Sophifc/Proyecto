@@ -4,17 +4,9 @@
 #include "tetris.h"
 #include "list.h"
 
-/*
-typedef struct 
-{
-	char nombre[100];
-	int puntosObtenidos;
-}Puntaje;*/
-
 void main(){
 
     List* ListaPuntaje=createList();
-    //int auxPuntos;
     int eleccion;
     while(eleccion!=0){
         printf("======================================================================\n");
@@ -57,18 +49,3 @@ void main(){
         }
     }
 }
-
-
-/*
-//Funcion que guarda los puntajes obtenidos
-void guardarPuntaje(List* ListaPuntaje){
-
-	Puntaje* puntajeNuevo;
-	char* nombreUsuario;
-	printf("Ingrese el su nombre o apodo\n");
-	fgets(nombreUsuario,100,stdin);
-
-	puntajeNuevo->puntosObtenidos=auxPuntos;
-	strcpy(puntajeNuevo->nombre,nombreUsuario);
-	pushBack(ListaPuntaje,puntajeNuevo);
-}*/
