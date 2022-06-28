@@ -6,10 +6,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <Windows.h>
+#include "list.h"
 
 //Definimos Controles del Tetris
-
-
 #define IZQUIERDA 75
 #define DERECHA 77
 #define ARRIBA 72
@@ -26,11 +25,18 @@
 #define VACIO 0
 #define PARED 1
 
+typedef struct 
+{
+	char nombre[100];
+	int puntosObtenidos;
+}Puntaje;
+
+
 //Declaracion de funciones a utilizar
 void crearTablero();
 void dibujarTetromino(int p);
 void dibujarTablero();
-int obtenerTecla();
+int obtenerTecla(List* ListaPuntaje);
 int verificarArea(int x,int y,int z,int r);
 int descenso();
 void verificarLinea();
@@ -39,8 +45,9 @@ void dibujarSiguienteTetromino(int p);
 void puntaje(int x); 
 void pausa();
 void limpiarTerminal();
-void tetris();
-void tetris2();
+void tetris(List* ListaPuntaje);
+void tetris2(List* ListaPuntaje);
+void guardarPuntaje(List* ListaPuntaje);
 
 //Ocultar cursor 
 void ocultarCursor(){
@@ -110,7 +117,7 @@ int aux2;
 int puntos = 0;
 int lineas = 0;
 
-void tetris (){
+void tetris (List* ListaPuntaje){
 	int i,j;
 	limpiarTerminal();
 	ocultarCursor();
@@ -147,7 +154,7 @@ void tetris (){
 				aux2 = aux1;
 				if(descenso())break;
 			}
-			if(obtenerTecla())break;
+			if(obtenerTecla(ListaPuntaje))break;
 			Sleep(1000/20);
 		}
 
@@ -157,6 +164,7 @@ void tetris (){
 		orientacion = siguiente_orientacion;
 	}
 
+	
 	//Final del juego
 	char fin;
  	gotoxy(TX+TW+3,TY+7);
@@ -168,17 +176,21 @@ void tetris (){
  	gotoxy(TX+TW+3,TY+10);
  	printf("|    J U E G O  T E R M I N A D O    |");
  	gotoxy(TX+TW+3,TY+11);
- 	printf("|                                    |");
+ 	printf("|  PRESIONE G PARA GUARDAR PUNTAJE   |");
  	gotoxy(TX+TW+3,TY+12);
  	printf("|                                    |");
  	gotoxy(TX+TW+3,TY+13);
  	printf("======================================");
+
+	if(obtenerTecla(ListaPuntaje));
+	Sleep(1000/20);
 	fin = getch();
 	gotoxy(1,28);
 	system("cls");
+	
 }
 
-void tetris2(){
+void tetris2(List* ListaPuntaje){
 	int i,j;
 	limpiarTerminal();
 	ocultarCursor();
@@ -215,7 +227,7 @@ void tetris2(){
 				aux2 = aux1;
 				if(descenso())break;
 			}
-			if(obtenerTecla())break;
+			if(obtenerTecla(ListaPuntaje))break;
 			Sleep(100/20);
 		}
 
@@ -236,12 +248,13 @@ void tetris2(){
  	gotoxy(TX+TW+3,TY+10);
  	printf("|    J U E G O  T E R M I N A D O    |");
  	gotoxy(TX+TW+3,TY+11);
- 	printf("|                                    |");
+ 	printf("|  PRESIONE G PARA GUARDAR PUNTAJE   |");
  	gotoxy(TX+TW+3,TY+12);
  	printf("|                                    |");
  	gotoxy(TX+TW+3,TY+13);
  	printf("======================================");
 	fin = getch();
+	if(obtenerTecla(ListaPuntaje));//AQUI
 	gotoxy(1,28);
 	system("cls");
 }
@@ -390,7 +403,7 @@ void dibujarTablero(){
 }
 
 //Funcion donde declaramos los controles del Tetris
-int obtenerTecla(){
+int obtenerTecla(List* ListaPuntaje){
 	char tecla;
 	if(kbhit()){
 		tecla = getch();
@@ -428,6 +441,10 @@ int obtenerTecla(){
 		case ' ':
 			while(descenso()==FALSE);
 			return TRUE;
+		case 'g':
+		case 'G':
+		guardarPuntaje(ListaPuntaje);
+		break;
 	}}
     return FALSE;	
 }
@@ -542,7 +559,20 @@ void pausa(){
  	actualizarTablero();
  	dibujarSiguienteTetromino(TRUE);
  	dibujarTetromino(TRUE);
- }
+}
+
+//Funcion que guarda los puntajes obtenidos
+void guardarPuntaje(List* ListaPuntaje){
+
+	Puntaje* puntajeNuevo;
+	char* nombreUsuario;
+	printf("Ingrese el su nombre o apodo\n");
+	fgets(nombreUsuario,100,stdin);
+
+	puntajeNuevo->puntosObtenidos=puntos;
+	strcpy(puntajeNuevo->nombre,nombreUsuario);
+	pushBack(ListaPuntaje,puntajeNuevo);
+}
 
 //Funcion para limpiar la Terminal
 void limpiarTerminal(){
