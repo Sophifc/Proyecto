@@ -181,7 +181,6 @@ void tetris (List* ListaPuntaje){
  	printf("|                                    |");
  	gotoxy(TX+TW+3,TY+13);
  	printf("======================================");
-
 	while(TRUE){
 		if(obtenerTecla(ListaPuntaje))break;
 	}
@@ -568,29 +567,20 @@ void pausa(){
 //Funcion que guarda los puntajes obtenidos
 void guardarPuntaje(List* ListaPuntaje){
 
-	Puntaje* puntajeNuevo;
+	int auxPuntaje=puntos;
+	system("cls");
+
+	Puntaje* puntajeNuevo=(Puntaje*) malloc (sizeof(Puntaje));
 	char nombreUsuario[100];
-
-	gotoxy(TX+TW+3,TY+7);
- 	printf("===================================");
- 	gotoxy(TX+TW+3,TY+8);
- 	printf("|                                 |");
-	gotoxy(TX+TW+3,TY+9);
- 	printf("|                                 |");
- 	gotoxy(TX+TW+3,TY+10);
- 	printf("|  Ingrese el su nombre o apodo   |");
- 	gotoxy(TX+TW+3,TY+11);
- 	printf("|                                 |");
- 	gotoxy(TX+TW+3,TY+12);
- 	printf("|                                 |");
- 	gotoxy(TX+TW+3,TY+13);
- 	printf("===================================");
-	//fgets(nombreUsuario,100,stdin);
-
-	puntajeNuevo->puntosObtenidos=puntos;
+	
+	printf("INGRESE SU NOMBRE O APODO\n");
+	scanf("%s^[/n]", &nombreUsuario);
 	strcpy(puntajeNuevo->nombre,nombreUsuario);
+	printf("Nombre guardado\n");
+	puntajeNuevo->puntosObtenidos=auxPuntaje;
+	printf("puntaje guardado\n");
 	pushBack(ListaPuntaje,puntajeNuevo);
-
+	printf("agregado a la lista\n");
 
 }
 
