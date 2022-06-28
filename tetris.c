@@ -1,5 +1,4 @@
 //Prototipo		tetris
-
 //Aqui se definen las librerias a usar
 #include <stdio.h>
 #include <conio.h>
@@ -9,6 +8,8 @@
 #include <Windows.h>
 
 //Definimos Controles del Tetris
+
+
 #define IZQUIERDA 75
 #define DERECHA 77
 #define ARRIBA 72
@@ -19,6 +20,7 @@
 #define TX 3
 #define TH 24
 #define TW 10
+
 
 //Definimos componentes del tablero
 #define VACIO 0
@@ -37,6 +39,8 @@ void dibujarSiguienteTetromino(int p);
 void puntaje(int x); 
 void pausa();
 void limpiarTerminal();
+void tetris();
+void tetris2();
 
 //Ocultar cursor 
 void ocultarCursor(){
@@ -106,11 +110,8 @@ int aux2;
 int puntos = 0;
 int lineas = 0;
 
-
-//FUNCION MAIN
-int main(){
+void tetris (){
 	int i,j;
-
 	limpiarTerminal();
 	ocultarCursor();
     srand(time(NULL));
@@ -174,9 +175,146 @@ int main(){
  	printf("======================================");
 	fin = getch();
 	gotoxy(1,28);
-
-	return 0;
+	system("cls");
 }
+
+void tetris2(){
+	int i,j;
+	limpiarTerminal();
+	ocultarCursor();
+    srand(time(NULL));
+	crearTablero();
+	dibujarTablero();
+	Sleep(3000);
+
+	//Obtenemos los valores al azar para generar los tetrominos
+	figura = rand()%7;
+	orientacion = rand()%4;
+
+	while(TRUE){
+		//Obtenemos los valores al azar para genera el siguiente tetromino
+		siguiente_figura = rand()%7;
+	    siguiente_orientacion = rand()%4;
+
+		//Coordenadas de donde nacen los tetrominos
+		nx = TW/2;
+		ny = 1;
+
+		//Dibujamos los tetrominos
+		dibujarSiguienteTetromino(TRUE);
+		dibujarTetromino(TRUE);
+
+		//Si no puede generar mas tetrominos, el juego acaba
+		if(verificarArea(nx,ny,figura,orientacion)!=0)break;
+
+		//Tiempo de descenso del tetromino
+		aux2 = aux1;
+		while(TRUE){
+			aux2 -= 1;
+			if(aux2==0){
+				aux2 = aux1;
+				if(descenso())break;
+			}
+			if(obtenerTecla())break;
+			Sleep(100/20);
+		}
+
+		//Aqui pasamos al siguiente tetromino
+		dibujarSiguienteTetromino(FALSE);
+		figura = siguiente_figura;
+		orientacion = siguiente_orientacion;
+	}
+
+	//Final del juego
+	char fin;
+ 	gotoxy(TX+TW+3,TY+7);
+ 	printf("======================================");
+ 	gotoxy(TX+TW+3,TY+8);
+ 	printf("|                                    |");
+ 	gotoxy(TX+TW+3,TY+9);
+ 	printf("|                                    |");
+ 	gotoxy(TX+TW+3,TY+10);
+ 	printf("|    J U E G O  T E R M I N A D O    |");
+ 	gotoxy(TX+TW+3,TY+11);
+ 	printf("|                                    |");
+ 	gotoxy(TX+TW+3,TY+12);
+ 	printf("|                                    |");
+ 	gotoxy(TX+TW+3,TY+13);
+ 	printf("======================================");
+	fin = getch();
+	gotoxy(1,28);
+	system("cls");
+}
+
+//FUNCION MAIN
+//int main(){
+//	int i,j;
+//	limpiarTerminal();
+//	ocultarCursor();
+//    srand(time(NULL));
+//	crearTablero();
+//	dibujarTablero();
+//	Sleep(3000);
+//
+	//Obtenemos los valores al azar para generar los tetrominos
+//	figura = rand()%7;
+//	orientacion = rand()%4;
+//
+//	while(TRUE){
+		//Obtenemos los valores al azar para genera el siguiente tetromino
+//		siguiente_figura = rand()%7;
+//	    siguiente_orientacion = rand()%4;
+//
+		//Coordenadas de donde nacen los tetrominos
+//		nx = TW/2;
+//		ny = 1;
+
+		//Dibujamos los tetrominos
+//		dibujarSiguienteTetromino(TRUE);
+//		dibujarTetromino(TRUE);
+
+		//Si no puede generar mas tetrominos, el juego acaba
+//		if(verificarArea(nx,ny,figura,orientacion)!=0)break;
+
+		//Tiempo de descenso del tetromino
+//		aux2 = aux1;
+//		while(TRUE){
+//			aux2 -= 1;
+//			if(aux2==0){
+//				aux2 = aux1;
+//				if(descenso())break;
+//			}
+//			if(obtenerTecla())break;
+//			Sleep(1000/20);
+//		}
+
+		//Aqui pasamos al siguiente tetromino
+//		dibujarSiguienteTetromino(FALSE);
+//		figura = siguiente_figura;
+//		orientacion = siguiente_orientacion;
+//	}
+
+	//Final del juego
+//	char fin;
+ //	gotoxy(TX+TW+3,TY+7);
+// 	printf("======================================");
+// 	gotoxy(TX+TW+3,TY+8);
+// 	printf("|                                    |");
+ //	gotoxy(TX+TW+3,TY+9);
+// 	printf("|                                    |");
+ //	gotoxy(TX+TW+3,TY+10);
+ //	printf("|    J U E G O  T E R M I N A D O    |");
+ //	gotoxy(TX+TW+3,TY+11);
+ //	printf("|                                    |");
+ //	gotoxy(TX+TW+3,TY+12);
+ //	printf("|                                    |");
+// 	gotoxy(TX+TW+3,TY+13);
+// 	printf("======================================");
+//	fin = getch();
+//	gotoxy(1,28);
+
+//	return 0;
+//}
 
 //Funcion donde creamos la ubicacion de los componentes del tabero
 void crearTablero(){
@@ -262,7 +400,7 @@ int obtenerTecla(){
 			pausa();
 			break;
 		case IZQUIERDA:
-		    if(verificarArea(nx-1,ny,figura,orientacion)==VACIO){
+		    if(verificarArea(nx-1,ny,figura,orientacion)==(VACIO)){
 			 dibujarTetromino(FALSE);
 			    nx--;
 			 dibujarTetromino(TRUE);
