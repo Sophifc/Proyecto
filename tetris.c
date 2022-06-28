@@ -573,15 +573,29 @@ void guardarPuntaje(List* ListaPuntaje){
 	char aux;
 	Puntaje* puntajeNuevo=(Puntaje*) malloc (sizeof(Puntaje));
 	char nombreUsuario[100];
-	
-	printf("INGRESE SU NOMBRE O APODO\n");
+	printf("=================================\n");
+	printf("|                               |\n");
+	printf("|INGRESE SU NOMBRE O APODO      |\n");
+	printf("|                               |\n");
+	printf("=================================\n");
 	scanf("%s^[/n]", &nombreUsuario);
 	strcpy(puntajeNuevo->nombre,nombreUsuario);
-	printf("nombre: %s\n", puntajeNuevo->nombre);
+	system("cls");
 	puntajeNuevo->puntosObtenidos=auxPuntaje;
-	printf("puntaje: %i\n", puntajeNuevo->puntosObtenidos);
+	printf("=================================\n");
+	if(puntajeNuevo->puntosObtenidos<1000){
+	printf("|        puntaje: %i           |\n", puntajeNuevo->puntosObtenidos);
+	}
+	if(puntajeNuevo->puntosObtenidos>999 && puntajeNuevo->puntosObtenidos<10000){
+	printf("|        puntaje: %i           |\n", puntajeNuevo->puntosObtenidos);
+	}
+	if(puntajeNuevo->puntosObtenidos>9999 && puntajeNuevo->puntosObtenidos<100000){
+	printf("|        puntaje: %i          |\n", puntajeNuevo->puntosObtenidos);
+	}
 	pushBack(ListaPuntaje,puntajeNuevo);
-	printf("agregado a la lista\n");
+	printf("|                               |\n");
+	printf("|      agregado a la lista      |\n");
+	printf("=================================\n");
 	aux = getch();
 }
 
