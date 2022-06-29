@@ -57,7 +57,7 @@ void main(){
                 printf("H   S : Pausa                   H\n");
                 printf("=================================\n");
                 printf("\n=============================================\n");
-                printf("H          PRESIONE CUALQUIER TECLA        H\n");
+                printf("H          PRESIONE CUALQUIER NUMERO        H\n");
                 printf("=============================================\n");
                 scanf("%d",&eleccionf);
                 system("cls");
@@ -65,6 +65,11 @@ void main(){
             case 3:
             system("cls");
             mostrarPuntajes(ListaPuntaje);
+            printf("\n=============================================\n");
+            printf("H          PRESIONE CUALQUIER NUMERO        H\n");
+            printf("=============================================\n");
+            scanf("%d",&eleccionf);
+            system("cls");
             break;
         }
     }

@@ -517,10 +517,10 @@ void guardarPuntaje(List* ListaPuntaje){
 	printf("|        puntaje: %i           |\n", puntajeNuevo->puntosObtenidos);
 	}
 	if(puntajeNuevo->puntosObtenidos>999 && puntajeNuevo->puntosObtenidos<10000){
-	printf("|        puntaje: %i           |\n", puntajeNuevo->puntosObtenidos);
+	printf("|        puntaje: %i          |\n", puntajeNuevo->puntosObtenidos);
 	}
 	if(puntajeNuevo->puntosObtenidos>9999 && puntajeNuevo->puntosObtenidos<100000){
-	printf("|        puntaje: %i          |\n", puntajeNuevo->puntosObtenidos);
+	printf("|        puntaje: %i         |\n", puntajeNuevo->puntosObtenidos);
 	}
 	pushBack(ListaPuntaje,puntajeNuevo);
 	printf("|                               |\n");
@@ -532,13 +532,15 @@ void guardarPuntaje(List* ListaPuntaje){
 void mostrarPuntajes(List* ListaPuntaje){
 
 	Puntaje* auxPuntaje=firstList(ListaPuntaje);
+	printf("=============================================\n");
 	if(auxPuntaje==NULL){
-		printf("No hay puntos\n");
+		printf("H            No hay puntos                  H\n");
 	}
 	while(auxPuntaje!=NULL){
 		printf("%s -> %i\n",auxPuntaje->nombre, auxPuntaje->puntosObtenidos);
 		auxPuntaje=nextList(ListaPuntaje);
 	}
+	printf("=============================================\n");
 }
 
 //Funcion para limpiar la Terminal
